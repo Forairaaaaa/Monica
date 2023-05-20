@@ -11,7 +11,7 @@
 #pragma once
 #include "disp/hal_disp.hpp"
 #include "power/hal_power.hpp"
-#include "power/hal_power.hpp"
+#include "rtc/hal_rtc.hpp"
 #include "tp/hal_tp.hpp"
 
 
@@ -36,6 +36,9 @@ class HAL {
 
         /* PMU AXP2101 */
         AXP2101::AXP2101 pmu;
+
+        /* RTC PCF8563 */
+        PCF8563::PCF8563 rtc;
 
 
 
