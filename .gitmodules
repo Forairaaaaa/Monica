@@ -1,0 +1,6 @@
+[submodule "Firmware/SourceCode/components/mooncake"]
+	path = Firmware/SourceCode/components/mooncake
+	url = git@github.com:Forairaaaaa/mooncake.git
+[submodule "Firmware/SourceCode/components/lvgl"]
+	path = Firmware/SourceCode/components/lvgl
+	url = https://github.com/lvgl/lvgl.git

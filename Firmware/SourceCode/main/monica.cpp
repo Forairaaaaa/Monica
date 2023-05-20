@@ -8,11 +8,18 @@
  * @copyright Copyright (c) 2023
  * 
  */
-#include <stdio.h>
+#include "hal/hal.h"
 
+static HAL Hal;
 
 
 extern "C" void app_main(void)
 {
+    Hal.init();
+
+
+    while (1) {
+        Hal.update();
+    }
 
 }
