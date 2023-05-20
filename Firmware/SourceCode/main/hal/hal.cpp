@@ -19,7 +19,7 @@ void HAL::init()
     /* Display */
     disp.init();
     disp.setColorDepth(16);
-    disp.setBrightness(50);
+    disp.setBrightness(255);
 
 
     /* Touch pad and I2C port 0 */
@@ -39,67 +39,79 @@ void HAL::init()
 
 static FT3168::TouchPoint_t tpp;
 
+
+bool screenOn = true;
+
 void HAL::update()
 {
+
+    if (pmu.isKeyPressed()) {
+        printf("666 %lld\n", esp_timer_get_time());
+
+        disp.fillScreen(TFT_BLACK);
+
+        screenOn = !screenOn;
+    }
+
+    if (!screenOn) {
+        return;
+    }
+
 
 
     tp.getTouchRaw(tpp);
     if(tpp.x != -1) {
-        printf("%d %d\n", tpp.x, tpp.y);
+        // printf("%d %d\n", tpp.x, tpp.y);
 
 
         disp.fillSmoothCircle(tpp.x, tpp.y, 10, TFT_YELLOW);
     }
 
 
-    if (pmu.isKeyPressed()) {
-        printf("666 %lld\n", esp_timer_get_time());
-
-        disp.fillScreen(TFT_BLACK);
-    }
+    
 
     if (pmu.isKeyLongPressed()) {
         printf("777 %lld\n", esp_timer_get_time());
-        disp.fillScreen(TFT_WHITE);
+        disp.fillScreen(TFT_BLUE);
     }
 
 
-    delay(10);
+    // delay(10);
 
 
     if (pmu.isCharging()) {
         disp.setTextSize(2);
-        disp.setTextColor(TFT_YELLOW);
+        disp.setTextColor(TFT_YELLOW, TFT_BLACK);
         disp.setCursor(10, 50);
-        disp.printf("is charging       \n");
+        disp.printf("is charging            \n");
     }
     else {
         disp.setTextSize(2);
-        disp.setTextColor(TFT_YELLOW);
+        disp.setTextColor(TFT_YELLOW, TFT_BLACK);
         disp.setCursor(10, 50);
-        disp.printf("not charging     \n");
+        disp.printf("not charging           \n");
     }
 
 
     if (pmu.isChargeDone()) {
         disp.setTextSize(2);
-        disp.setTextColor(TFT_YELLOW);
+        disp.setTextColor(TFT_YELLOW, TFT_BLACK);
         disp.setCursor(10, 150);
-        disp.printf("charge done      \n");
+        disp.printf("charge done              \n");
     }
     else {
         disp.setTextSize(2);
-        disp.setTextColor(TFT_YELLOW);
+        disp.setTextColor(TFT_YELLOW, TFT_BLACK);
         disp.setCursor(10, 150);
-        disp.printf("charge not done      \n");
+        disp.printf("charge not done          \n");
     }
 
 
 
     disp.setTextSize(2);
-    disp.setTextColor(TFT_YELLOW);
+    disp.setTextColor(TFT_YELLOW, TFT_BLACK);
     disp.setCursor(10, 200);
-    disp.printf("bat: %d%%\n", pmu.batteryLevel());
+    disp.printf("bat: %d%%    \n", pmu.batteryLevel());
 
 
 

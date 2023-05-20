@@ -122,10 +122,10 @@ namespace AXP2101 {
             {
                 /* PMU status 2 */
                 _readReg(0x01, 1);
-                if ((_data_buffer[0] & 0b00000111) == 0b00000101) {
-                    return false;
+                if ((_data_buffer[0] & 0b01100000) == 0b00100000) {
+                    return true;
                 }
-                return true;
+                return false;
             }
 
             inline bool isChargeDone()
