@@ -9,6 +9,7 @@
  * 
  */
 #include "hal.h"
+#include "hal_config.h"
 
 
 void HAL::init()
@@ -18,7 +19,7 @@ void HAL::init()
     /* Display */
     disp.init();
     disp.setColorDepth(16);
-    disp.setBrightness(128);
+    disp.setBrightness(50);
 
 
     /* Touch pad and I2C port 0 */
@@ -26,9 +27,11 @@ void HAL::init()
     cfg.pull_up_en = false;
     cfg.i2c_port = HAL_PIN_I2C_PORT;
     tp.config(cfg);
-    tp.init(HAL_PIN_I2C_SDA, HAL_PIN_I2C_SCL, 3, 12, true, 400000);
+    tp.init(HAL_PIN_I2C_SDA, HAL_PIN_I2C_SCL, HAL_PIN_TP_RST, HAL_PIN_TP_INTR, true, 400000);
 
 
+    /* PMU AXP2101 */
+    pmu.init(HAL_PIN_I2C_SDA, HAL_PIN_I2C_SCL, HAL_PIN_AXP_INTR);
 
 }
 
@@ -45,9 +48,58 @@ void HAL::update()
         printf("%d %d\n", tpp.x, tpp.y);
 
 
-        disp.drawCircle(tpp.x, tpp.y, 5, TFT_YELLOW);
+        disp.fillSmoothCircle(tpp.x, tpp.y, 10, TFT_YELLOW);
     }
 
+
+    if (pmu.isKeyPressed()) {
+        printf("666 %lld\n", esp_timer_get_time());
+
+        disp.fillScreen(TFT_BLACK);
+    }
+
+    if (pmu.isKeyLongPressed()) {
+        printf("777 %lld\n", esp_timer_get_time());
+        disp.fillScreen(TFT_WHITE);
+    }
+
+
+    delay(10);
+
+
+    if (pmu.isCharging()) {
+        disp.setTextSize(2);
+        disp.setTextColor(TFT_YELLOW);
+        disp.setCursor(10, 50);
+        disp.printf("is charging       \n");
+    }
+    else {
+        disp.setTextSize(2);
+        disp.setTextColor(TFT_YELLOW);
+        disp.setCursor(10, 50);
+        disp.printf("not charging     \n");
+    }
+
+
+    if (pmu.isChargeDone()) {
+        disp.setTextSize(2);
+        disp.setTextColor(TFT_YELLOW);
+        disp.setCursor(10, 150);
+        disp.printf("charge done      \n");
+    }
+    else {
+        disp.setTextSize(2);
+        disp.setTextColor(TFT_YELLOW);
+        disp.setCursor(10, 150);
+        disp.printf("charge not done      \n");
+    }
+
+
+
+    disp.setTextSize(2);
+    disp.setTextColor(TFT_YELLOW);
+    disp.setCursor(10, 200);
+    disp.printf("bat: %d%%\n", pmu.batteryLevel());
 
 
 

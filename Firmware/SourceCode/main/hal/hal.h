@@ -10,15 +10,12 @@
  */
 #pragma once
 #include "disp/hal_disp.hpp"
+#include "power/hal_power.hpp"
+#include "power/hal_power.hpp"
 #include "tp/hal_tp.hpp"
 
 
 #define delay(ms) vTaskDelay(pdMS_TO_TICKS(ms))
-
-
-#define HAL_PIN_I2C_PORT    0
-#define HAL_PIN_I2C_SCL     10
-#define HAL_PIN_I2C_SDA     11
 
 
 class HAL {
@@ -35,8 +32,10 @@ class HAL {
         LGFX_Monica disp;
 
         /* Touch pad */
-        FT3168::tp_ft3168 tp;
+        FT3168::TP_FT3168 tp;
 
+        /* PMU AXP2101 */
+        AXP2101::AXP2101 pmu;
 
 
 

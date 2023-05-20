@@ -42,7 +42,7 @@ namespace FT3168 {
     };
 
 
-    class tp_ft3168 {
+    class TP_FT3168 {
         private:
             Config_t _cfg;
             bool _inited;
@@ -74,8 +74,8 @@ namespace FT3168 {
 
 
         public:
-            tp_ft3168(): _inited(false) {}
-            ~tp_ft3168() {}
+            TP_FT3168(): _inited(false) {}
+            ~TP_FT3168() {}
 
             
             /* Config */
