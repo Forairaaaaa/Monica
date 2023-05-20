@@ -15,29 +15,38 @@ void HAL::init()
 {
     
 
-    /* Amoled */
+    /* Display */
     disp.init();
     disp.setColorDepth(16);
-    // disp.setBrightness(255);
+    disp.setBrightness(128);
+
+
+    /* Touch pad and I2C port 0 */
+    auto cfg = tp.config();
+    cfg.pull_up_en = false;
+    cfg.i2c_port = HAL_PIN_I2C_PORT;
+    tp.config(cfg);
+    tp.init(HAL_PIN_I2C_SDA, HAL_PIN_I2C_SCL, 3, 12, true, 400000);
+
+
 
 }
 
+
+
+static FT3168::TouchPoint_t tpp;
 
 void HAL::update()
 {
 
 
-    disp.fillScreen(TFT_RED);
-    printf("r\n");
-    delay(2000);
+    tp.getTouchRaw(tpp);
+    if(tpp.x != -1) {
+        printf("%d %d\n", tpp.x, tpp.y);
 
-    disp.fillScreen(TFT_GREEN);
-    printf("g\n");
-    delay(2000);
-    
-    disp.fillScreen(TFT_BLUE);
-    printf("b\n");
-    delay(2000);
+
+        disp.drawCircle(tpp.x, tpp.y, 5, TFT_YELLOW);
+    }
 
 
 
