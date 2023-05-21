@@ -20,12 +20,17 @@
 
 class HAL {
     private:
-        
+        bool _isSleeping ;
 
 
     public:
-        HAL() = default;
+        HAL() : _isSleeping(false) {}
         ~HAL() = default;
+
+        
+        /* Sleep flag */
+        inline void isSleeping(bool sleep) { _isSleeping = sleep; }
+        inline bool isSleeping(void) { return _isSleeping; } 
 
 
         /* Display */
@@ -58,6 +63,9 @@ class HAL {
          * 
          */
         void update();
+
+        
+        
 
 
 };

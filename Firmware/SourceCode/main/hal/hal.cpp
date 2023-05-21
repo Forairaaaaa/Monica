@@ -21,8 +21,6 @@ tm rtc_time;
 
 void HAL::init()
 {
-    
-
     /* Display */
     disp.init();
     disp.setColorDepth(16);
