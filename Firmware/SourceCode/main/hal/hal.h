@@ -11,6 +11,7 @@
 #pragma once
 #include "buzzer/hal_buzzer.hpp"
 #include "disp/hal_disp.hpp"
+#include "lvgl/hal_lvgl.hpp"
 #include "power/hal_power.hpp"
 #include "rtc/hal_rtc.hpp"
 #include "tp/hal_tp.hpp"
@@ -42,8 +43,20 @@ class HAL {
         /* Buzzer */
         BUZZER::BUZZER buzz;
 
+        /* Lvgl */
+        LVGL::LVGL lvgl;
 
+
+        /**
+         * @brief Hal init 
+         * 
+         */
         void init();
+
+        /**
+         * @brief Update hal
+         * 
+         */
         void update();
 
 

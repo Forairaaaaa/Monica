@@ -28,7 +28,6 @@ void HAL::init()
     disp.setColorDepth(16);
     disp.setBrightness(200);
 
-
     /* Touch pad and I2C port 0 (default) */
     auto cfg = tp.config();
     cfg.pull_up_en = false;
@@ -44,8 +43,14 @@ void HAL::init()
     /* Buzzer */
     buzz.init(HAL_PIN_BUZZER);
 
+    /* Lvgl */
+    lvgl.init(&disp, &tp);
 
+    lv_demo_widgets();
 
+    while (1) {
+        lvgl.update();
+    }
 
 
 
