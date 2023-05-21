@@ -46,11 +46,11 @@ void HAL::init()
     /* Lvgl */
     lvgl.init(&disp, &tp);
 
-    lv_demo_widgets();
+    // lv_demo_widgets();
 
-    while (1) {
-        lvgl.update();
-    }
+    // while (1) {
+    //     lvgl.update();
+    // }
 
 
 
@@ -90,90 +90,95 @@ bool screenOn = true;
 void HAL::update()
 {
 
-    if (pmu.isKeyPressed()) {
-        printf("666 %lld\n", esp_timer_get_time());
+    // if (pmu.isKeyPressed()) {
+    //     printf("666 %lld\n", esp_timer_get_time());
 
-        disp.fillScreen(TFT_BLACK);
+    //     disp.fillScreen(TFT_BLACK);
 
-        screenOn = !screenOn;
+    //     screenOn = !screenOn;
 
-        // buzz.tone(2000, 50);
-    }
+    //     // buzz.tone(2000, 50);
+    // }
 
-    if (!screenOn) {
-        return;
-    }
+    // if (!screenOn) {
+    //     return;
+    // }
 
 
-    rtc.getTime(rtc_time);
-    printf("%02d:%02d:%02d %d-%d-%d-%d\n", rtc_time.tm_hour, rtc_time.tm_min, rtc_time.tm_sec, rtc_time.tm_year, rtc_time.tm_mon + 1, rtc_time.tm_mday, rtc_time.tm_wday);
+    // rtc.getTime(rtc_time);
+    // printf("%02d:%02d:%02d %d-%d-%d-%d\n", rtc_time.tm_hour, rtc_time.tm_min, rtc_time.tm_sec, rtc_time.tm_year, rtc_time.tm_mon + 1, rtc_time.tm_mday, rtc_time.tm_wday);
     
-    disp.setTextSize(2);
-    disp.setTextColor(TFT_YELLOW, TFT_BLACK);
-    disp.setCursor(10, 50);
-    disp.printf("%02d:%02d:%02d %d-%d-%d-%d  \n", rtc_time.tm_hour, rtc_time.tm_min, rtc_time.tm_sec, rtc_time.tm_year, rtc_time.tm_mon + 1, rtc_time.tm_mday, rtc_time.tm_wday);
+    // disp.setTextSize(2);
+    // disp.setTextColor(TFT_YELLOW, TFT_BLACK);
+    // disp.setCursor(10, 50);
+    // disp.printf("%02d:%02d:%02d %d-%d-%d-%d  \n", rtc_time.tm_hour, rtc_time.tm_min, rtc_time.tm_sec, rtc_time.tm_year, rtc_time.tm_mon + 1, rtc_time.tm_mday, rtc_time.tm_wday);
 
 
 
-    tp.getTouchRaw(tpp);
-    if(tpp.x != -1) {
-        // printf("%d %d\n", tpp.x, tpp.y);
+    // tp.getTouchRaw(tpp);
+    // if(tpp.x != -1) {
+    //     // printf("%d %d\n", tpp.x, tpp.y);
 
 
-        disp.fillSmoothCircle(tpp.x, tpp.y, 10, TFT_YELLOW);
-    }
+    //     disp.fillSmoothCircle(tpp.x, tpp.y, 10, TFT_YELLOW);
+    // }
 
 
     
 
-    if (pmu.isKeyLongPressed()) {
-        printf("777 %lld\n", esp_timer_get_time());
-        disp.fillScreen(TFT_BLUE);
+    // if (pmu.isKeyLongPressed()) {
+    //     printf("777 %lld\n", esp_timer_get_time());
+    //     disp.fillScreen(TFT_BLUE);
 
-        // buzz.tone(4000, 50);
-    }
-
-
-    // delay(10);
+    //     // buzz.tone(4000, 50);
+    // }
 
 
-    if (pmu.isCharging()) {
-        disp.setTextSize(2);
-        disp.setTextColor(TFT_YELLOW, TFT_BLACK);
-        disp.setCursor(10, 100);
-        disp.printf("is charging            \n");
-    }
-    else {
-        disp.setTextSize(2);
-        disp.setTextColor(TFT_YELLOW, TFT_BLACK);
-        disp.setCursor(10, 100);
-        disp.printf("not charging           \n");
-    }
+    // // delay(10);
 
 
-    if (pmu.isChargeDone()) {
-        disp.setTextSize(2);
-        disp.setTextColor(TFT_YELLOW, TFT_BLACK);
-        disp.setCursor(10, 150);
-        disp.printf("charge done              \n");
-    }
-    else {
-        disp.setTextSize(2);
-        disp.setTextColor(TFT_YELLOW, TFT_BLACK);
-        disp.setCursor(10, 150);
-        disp.printf("charge not done          \n");
-    }
+    // if (pmu.isCharging()) {
+    //     disp.setTextSize(2);
+    //     disp.setTextColor(TFT_YELLOW, TFT_BLACK);
+    //     disp.setCursor(10, 100);
+    //     disp.printf("is charging            \n");
+    // }
+    // else {
+    //     disp.setTextSize(2);
+    //     disp.setTextColor(TFT_YELLOW, TFT_BLACK);
+    //     disp.setCursor(10, 100);
+    //     disp.printf("not charging           \n");
+    // }
 
 
-
-    disp.setTextSize(2);
-    disp.setTextColor(TFT_YELLOW, TFT_BLACK);
-    disp.setCursor(10, 200);
-    disp.printf("bat: %d%%    \n", pmu.batteryLevel());
+    // if (pmu.isChargeDone()) {
+    //     disp.setTextSize(2);
+    //     disp.setTextColor(TFT_YELLOW, TFT_BLACK);
+    //     disp.setCursor(10, 150);
+    //     disp.printf("charge done              \n");
+    // }
+    // else {
+    //     disp.setTextSize(2);
+    //     disp.setTextColor(TFT_YELLOW, TFT_BLACK);
+    //     disp.setCursor(10, 150);
+    //     disp.printf("charge not done          \n");
+    // }
 
 
 
+    // disp.setTextSize(2);
+    // disp.setTextColor(TFT_YELLOW, TFT_BLACK);
+    // disp.setCursor(10, 200);
+    // disp.printf("bat: %d%%    \n", pmu.batteryLevel());
 
-    delay(1000);
+
+
+
+    // delay(1000);
+
+
+
+
+    lvgl.update();
 }
 

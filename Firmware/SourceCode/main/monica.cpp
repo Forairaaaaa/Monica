@@ -8,18 +8,29 @@
  * @copyright Copyright (c) 2023
  * 
  */
+#include <mooncake.h>
 #include "hal/hal.h"
 
-static HAL Hal;
+
+static MOONCAKE::Framework mooncake_ui;
+static HAL hal;
 
 
 extern "C" void app_main(void)
 {
-    Hal.init();
+    /* Hardware init */
+    hal.init();
+
+
+    /* UI framwork init */
+    mooncake_ui.setDisplay(hal.disp.width(), hal.disp.height());
+    mooncake_ui.init();
 
 
     while (1) {
-        Hal.update();
+        mooncake_ui.update();
+        hal.update();
+        vTaskDelay(pdMS_TO_TICKS(2));
     }
 
 }
