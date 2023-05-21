@@ -24,7 +24,7 @@ namespace USER_APPS {
                 if (_hal->pmu.isKeyPressed()) {
 
                     if (_data.is_disp_on) {
-                        _hal->disp.setBrightness(0);
+                        _hal->disp.setBrightness(1);
                     }
                     else {
                         _hal->disp.setBrightness(200);
@@ -32,7 +32,7 @@ namespace USER_APPS {
                     
 
                     _hal->isSleeping(_data.is_disp_on);
-                    
+
                     _data.is_disp_on = !_data.is_disp_on;
                     
                 }
