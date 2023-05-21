@@ -12,6 +12,10 @@
 #include "hal_config.h"
 
 
+
+#define delay(ms) vTaskDelay(pdMS_TO_TICKS(ms))
+
+
 tm rtc_time;
 
 
@@ -34,9 +38,15 @@ void HAL::init()
     /* PMU AXP2101 */
     pmu.init(HAL_PIN_I2C_SDA, HAL_PIN_I2C_SCL, HAL_PIN_AXP_INTR);
 
-
     /* RTC PCF8563 */
     rtc.init(HAL_PIN_I2C_SDA, HAL_PIN_I2C_SCL, HAL_PIN_RTC_INTR);
+
+    /* Buzzer */
+    buzz.init(HAL_PIN_BUZZER);
+
+
+
+
 
 
     // rtc_time.tm_hour = 2;
@@ -47,6 +57,20 @@ void HAL::init()
     // rtc_time.tm_mday = 21;
     // rtc_time.tm_wday = 0;
     // rtc.setTime(rtc_time);
+
+
+    // buzz.tone(2000, 1000);
+    // delay(1200);
+
+    // buzz.tone(4000, 1000);
+    // delay(1200);
+
+    // buzz.tone(500, 1000);
+    // delay(1200);
+
+    // buzz.tone(700, 2000);
+    // // delay(1200);
+
 
 }
 
@@ -67,6 +91,8 @@ void HAL::update()
         disp.fillScreen(TFT_BLACK);
 
         screenOn = !screenOn;
+
+        // buzz.tone(2000, 50);
     }
 
     if (!screenOn) {
@@ -98,6 +124,8 @@ void HAL::update()
     if (pmu.isKeyLongPressed()) {
         printf("777 %lld\n", esp_timer_get_time());
         disp.fillScreen(TFT_BLUE);
+
+        // buzz.tone(4000, 50);
     }
 
 

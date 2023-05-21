@@ -21,8 +21,17 @@
 #define HAL_PIN_TP_INTR     12
 
 /* PMU AXP2101 */
-#define HAL_PIN_AXP_INTR    -1
+#define HAL_PIN_AXP_INTR    14
 
 /* RTC PCF8563 */
-#define HAL_PIN_RTC_INTR    -1
+#define HAL_PIN_RTC_INTR    41
 
+/* IMU BMI270 */
+#define HAL_PIN_IMU_INTR1   38
+#define HAL_PIN_IMU_INTR2   40
+
+/* Buzzer */
+#define HAL_PIN_BUZZER      45
+
+/* Mic */
+#define HAL_PIN_MIC         42

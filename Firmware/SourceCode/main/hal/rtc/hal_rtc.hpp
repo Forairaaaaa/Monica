@@ -1,7 +1,7 @@
 /**
  * @file hal_rtc.hpp
  * @author Forairaaaaa
- * @brief Thanks https://github.com/nopnop2002/esp-idf-pcf8563
+ * @brief Thanks to https://github.com/nopnop2002/esp-idf-pcf8563
  * @version 0.1
  * @date 2023-05-21
  * 

@@ -9,13 +9,12 @@
  * 
  */
 #pragma once
+#include "buzzer/hal_buzzer.hpp"
 #include "disp/hal_disp.hpp"
 #include "power/hal_power.hpp"
 #include "rtc/hal_rtc.hpp"
 #include "tp/hal_tp.hpp"
 
-
-#define delay(ms) vTaskDelay(pdMS_TO_TICKS(ms))
 
 
 class HAL {
@@ -40,6 +39,8 @@ class HAL {
         /* RTC PCF8563 */
         PCF8563::PCF8563 rtc;
 
+        /* Buzzer */
+        BUZZER::BUZZER buzz;
 
 
         void init();
