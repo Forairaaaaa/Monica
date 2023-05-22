@@ -10,4 +10,3 @@
  */
 #pragma once
 
-#include "hardware_manager/hardware_manager.h"

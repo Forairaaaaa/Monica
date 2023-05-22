@@ -64,8 +64,5 @@ class HAL {
          */
         void update();
 
-        
-        
-
 
 };

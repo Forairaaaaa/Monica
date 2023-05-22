@@ -10,11 +10,11 @@
  */
 #include <mooncake.h>
 #include "user_apps/user_apps.h"
-#include "hal/hal.h"
+#include "hardware_manager/hardware_manager.h"
 
 
 static MOONCAKE::Framework mooncake_ui;
-static HAL hal;
+static HM::Hardware_Manager hardware_manager;
 
 
 
@@ -144,22 +144,22 @@ class AppTest : public MOONCAKE::APP_BASE {
 extern "C" void app_main(void)
 {
     /* Hardware init */
-    hal.init();
-
+    hardware_manager.init();
 
     /* UI framwork init */
-    mooncake_ui.setDisplay(hal.disp.width(), hal.disp.height());
+    mooncake_ui.setDisplay(hardware_manager.disp.width(), hardware_manager.disp.height());
     mooncake_ui.init();
+
+    /* Set to same database */
+    hardware_manager.setDatabase(mooncake_ui.getDatabase());
+
+
+
+
 
 
     /* Install Apps */
     MOONCAKE::APP_BASE* app_ptr = nullptr;
-
-    /* Hardware manager */
-    app_ptr = new USER_APPS::HM::Hardware_Manager();
-    mooncake_ui.install(app_ptr, (void*)&hal);
-    mooncake_ui.startApp(app_ptr);
-
 
 
     std::string name;
@@ -174,12 +174,12 @@ extern "C" void app_main(void)
 
 
 
+
+
+
+
     while (1) {
-
-        if (!hal.isSleeping()) {
-            hal.update();
-        }
-
+        hardware_manager.update();
         mooncake_ui.update();
         vTaskDelay(pdMS_TO_TICKS(2));
     }
