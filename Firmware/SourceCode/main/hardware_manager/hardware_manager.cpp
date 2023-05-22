@@ -9,7 +9,12 @@
  * 
  */
 #include "hardware_manager.h"
+#include "../hal/hal_config.h"
 #include <esp_log.h>
+#include <esp_sleep.h>
+
+
+#define delay(ms) vTaskDelay(pdMS_TO_TICKS(ms))
 
 
 namespace HM {
@@ -46,6 +51,9 @@ namespace HM {
     {
 
         update_rtc_time();
+
+        update_go_sleep();
+        update_power_mode();
 
 
 
@@ -85,6 +93,83 @@ namespace HM {
     {
         *_power_infos.ptr_battery_level = pmu.batteryLevel();
         *_power_infos.ptr_battery_is_charging = pmu.isCharging();
+    }
+
+
+    void Hardware_Manager::update_go_sleep()
+    {
+        /* Check lvgl inactive time */
+        if (lv_disp_get_inactive_time(NULL) > _power_manager.auto_sleep_time) {
+            _power_manager.power_mode = mode_sleeping;
+        }
+        
+
+
+    }
+
+
+    void Hardware_Manager::update_power_mode()
+    {
+        if (_power_manager.power_mode == mode_sleeping) {
+
+
+            disp.setBrightness(1);
+
+
+
+
+
+            ESP_LOGI(TAG, "going sleep...");
+
+
+            gpio_reset_pin(GPIO_NUM_0);
+            gpio_set_direction(GPIO_NUM_0, GPIO_MODE_INPUT);
+            gpio_sleep_set_pull_mode(GPIO_NUM_0, GPIO_PULLUP_ONLY);
+            gpio_wakeup_enable(GPIO_NUM_0, GPIO_INTR_LOW_LEVEL);
+            gpio_reset_pin(GPIO_NUM_12);
+            gpio_set_direction(GPIO_NUM_12, GPIO_MODE_INPUT);
+            gpio_sleep_set_pull_mode(GPIO_NUM_12, GPIO_PULLUP_ONLY);
+            gpio_wakeup_enable(GPIO_NUM_12, GPIO_INTR_LOW_LEVEL);
+            esp_sleep_enable_gpio_wakeup();
+
+            esp_light_sleep_start();
+
+
+
+
+
+
+
+            
+
+
+
+
+
+            // buzz.tone(4000, 100);
+
+
+
+
+            
+
+            _power_manager.power_mode = mode_normal;
+
+            
+
+
+            /* Reset screen */
+            disp.init();
+            disp.setColorDepth(16);
+            disp.setBrightness(200);
+
+
+            /* Reset lvgl inactive time */
+            lv_disp_trig_activity(NULL);
+            /* Refresh full screen */
+            lv_obj_invalidate(lv_scr_act());
+
+        }
     }
 
 }

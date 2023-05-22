@@ -32,11 +32,25 @@ namespace HM {
     };
 
 
+    enum PowerMode_t {
+        mode_normal = 0,
+        mode_going_sleep,
+        mode_sleeping
+    };
+
+    struct PowerManager_t {
+        PowerMode_t power_mode = mode_normal;
+
+        uint32_t auto_sleep_time = 5000;
+    };
+
+
     class Hardware_Manager : public HAL {
         private:
             SIMPLEKV::SimpleKV* _database;
             RtcData_t _rtc_data;
             PowerInfos_t _power_infos;
+            PowerManager_t _power_manager;
 
 
         public:
@@ -61,6 +75,7 @@ namespace HM {
             void update_rtc_time();
             void update_power_infos();
             void update_go_sleep();
+            void update_power_mode();
 
 
 

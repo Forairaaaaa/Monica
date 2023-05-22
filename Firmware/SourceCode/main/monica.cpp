@@ -163,7 +163,7 @@ extern "C" void app_main(void)
 
 
     std::string name;
-    for (int i = 0; i < 19; i++) {
+    for (int i = 0; i < 10; i++) {
         name = "Test-" + std::to_string(i);
         // printf("%s\n", name.c_str());
 
