@@ -1,0 +1,113 @@
+name: Compile Examples
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/compile-examples.yml"
+      - "examples/**"
+      - "src/**"
+  push:
+    paths:
+      - ".github/workflows/compile-examples.yml"
+      - "examples/**"
+      - "src/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      UNIVERSAL_SKETCH_PATHS: |
+        - examples/SimpleAccelerometer
+        - examples/SimpleGyroscope
+        - examples/SimpleMagnetometer
+      SKETCHES_REPORTS_PATH: sketches-reports
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        board:
+          - fqbn: arduino:samd:mkr1000
+            platforms: |
+              - name: arduino:samd
+          - fqbn: arduino:samd:mkrzero
+            platforms: |
+              - name: arduino:samd
+          - fqbn: arduino:samd:mkrwifi1010
+            platforms: |
+              - name: arduino:samd
+          - fqbn: arduino:samd:mkrfox1200
+            platforms: |
+              - name: arduino:samd
+          - fqbn: arduino:samd:mkrwan1300
+            platforms: |
+              - name: arduino:samd
+          - fqbn: arduino:samd:mkrwan1310
+            platforms: |
+              - name: arduino:samd
+          - fqbn: arduino:samd:mkrgsm1400
+            platforms: |
+              - name: arduino:samd
+          - fqbn: arduino:samd:mkrnb1500
+            platforms: |
+              - name: arduino:samd
+          - fqbn: arduino:samd:mkrvidor4000
+            platforms: |
+              - name: arduino:samd
+          - fqbn: arduino:mbed_portenta:envie_m7
+            platforms: |
+              - name: arduino:mbed_portenta
+            sketch-paths: |
+              - examples/Interrupts_subclassing
+          - fqbn: arduino:mbed_portenta:envie_m4
+            platforms: |
+              - name: arduino:mbed_portenta
+            sketch-paths: |
+              - examples/Interrupts_subclassing
+          - fqbn: arduino:mbed_nano:nano33ble
+            platforms: |
+              - name: arduino:mbed_nano
+            sketch-paths: |
+              - examples/Interrupts_subclassing
+          - fqbn: arduino:mbed_nano:nanorp2040connect
+            platforms: |
+              - name: arduino:mbed_nano
+          - fqbn: arduino:mbed_edge:edge_control
+            platforms: |
+              - name: arduino:mbed_edge
+          - fqbn: esp32:esp32:esp32
+            platforms: |
+              - name: esp32:esp32
+                source-url: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+          - fqbn: rp2040:rp2040:rpipico
+            platforms: |
+              - name: rp2040:rp2040
+                source-url: https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install ESP32 platform dependencies
+        if: startsWith(matrix.board.fqbn, 'esp32:esp32')
+        run: pip3 install pyserial
+
+      - name: Compile examples
+        uses: arduino/compile-sketches@main
+        with:
+          fqbn: ${{ matrix.board.fqbn }}
+          platforms: ${{ matrix.board.platforms }}
+          enable-deltas-report: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          sketches-report-path: ${{ env.SKETCHES_REPORTS_PATH }}
+          sketch-paths: |
+            ${{ env.UNIVERSAL_SKETCH_PATHS }}
+            ${{ matrix.sketch-paths }}
+
+
+      - name: Save memory usage change report as artifact
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.SKETCHES_REPORTS_PATH }}
+          path: ${{ env.SKETCHES_REPORTS_PATH }}

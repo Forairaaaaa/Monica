@@ -31,13 +31,18 @@ namespace HM {
         }
         _database = database;
 
+
         /* Get data's pointer in database */
+
         /* Time */
         _rtc_data.ptr_in_db = (MOONCAKE::DataTime_t*)getDatabase()->Get(MC_TIME)->addr;
 
         /* Power infos */
         _power_infos.ptr_battery_level = (uint8_t*)getDatabase()->Get(MC_BATTERY_LEVEL)->addr;
         _power_infos.ptr_battery_is_charging = (bool*)getDatabase()->Get(MC_BATTERY_IS_CHARGING)->addr;
+
+        /* IMU */
+        _imu_data.steps = (uint32_t*)getDatabase()->Get(MC_STEPS)->addr;
     }
 
 
@@ -51,6 +56,7 @@ namespace HM {
     {
 
         update_rtc_time();
+        update_imu_data();
 
         update_go_sleep();
         update_power_mode();
@@ -65,6 +71,7 @@ namespace HM {
     void Hardware_Manager::update_rtc_time()
     {
         if ((esp_timer_get_time() - _rtc_data.update_count) > _rtc_data.update_interval) {
+
             /* Read RTC */
             rtc.getTime(_rtc_data.rtc_time);
             // printf("%02d:%02d:%02d %d-%d-%d-%d\n",
@@ -85,6 +92,19 @@ namespace HM {
 
             /* Reset time count */
             _rtc_data.update_count = esp_timer_get_time();
+        }
+    }
+
+
+    void Hardware_Manager::update_imu_data()
+    {
+        if ((esp_timer_get_time() - _imu_data.update_count) > _imu_data.update_interval) {
+
+            /* Read IMU */
+            *_imu_data.steps = imu.getSteps();
+
+            /* Reset time count */
+            _imu_data.update_count = esp_timer_get_time();
         }
     }
 
@@ -126,10 +146,18 @@ namespace HM {
             gpio_set_direction(GPIO_NUM_0, GPIO_MODE_INPUT);
             gpio_sleep_set_pull_mode(GPIO_NUM_0, GPIO_PULLUP_ONLY);
             gpio_wakeup_enable(GPIO_NUM_0, GPIO_INTR_LOW_LEVEL);
+            
             gpio_reset_pin(GPIO_NUM_12);
             gpio_set_direction(GPIO_NUM_12, GPIO_MODE_INPUT);
             gpio_sleep_set_pull_mode(GPIO_NUM_12, GPIO_PULLUP_ONLY);
             gpio_wakeup_enable(GPIO_NUM_12, GPIO_INTR_LOW_LEVEL);
+
+            gpio_reset_pin(GPIO_NUM_40);
+            gpio_set_direction(GPIO_NUM_40, GPIO_MODE_INPUT);
+            gpio_sleep_set_pull_mode(GPIO_NUM_40, GPIO_FLOATING);
+            gpio_wakeup_enable(GPIO_NUM_40, GPIO_INTR_LOW_LEVEL);
+
+
             esp_sleep_enable_gpio_wakeup();
 
             esp_light_sleep_start();
@@ -151,7 +179,7 @@ namespace HM {
 
 
 
-            
+            /* Wake up */
 
             _power_manager.power_mode = mode_normal;
 

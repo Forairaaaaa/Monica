@@ -12,6 +12,7 @@
 #include "hal_config.h"
 
 
+
 void HAL::init()
 {
     /* Display */
@@ -36,6 +37,36 @@ void HAL::init()
 
     /* Lvgl */
     lvgl.init(&disp, &tp);
+
+    /* IMU BMI270 + BMM150 */
+    imu.init();
+    /* Setup wrist wear wakeup interrupt */
+    imu.setWristWearWakeup();
+    /* Enable step counter */
+    imu.enableStepCounter();
+
+
+
+    // float x, y, z;
+
+    // while (1) {
+
+    //     if (imu.accelerationAvailable()) {
+    //         imu.readAcceleration(x, y, z); 
+
+    //         printf("%0.4f \t %0.4f \t %0.4f\n", x, y, z);
+            
+    //     }
+
+
+    //     printf("%ld\n", imu.getSteps());
+    
+
+    //     vTaskDelay(10);
+    // }
+
+
+
 }
 
 

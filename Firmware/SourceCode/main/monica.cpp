@@ -143,10 +143,17 @@ class AppTest : public MOONCAKE::APP_BASE {
 
 extern "C" void app_main(void)
 {
+
+
     /* Hardware init */
     hardware_manager.init();
 
-    /* UI framwork init */
+
+
+
+    
+
+    // /* UI framwork init */
     mooncake_ui.setDisplay(hardware_manager.disp.width(), hardware_manager.disp.height());
     mooncake_ui.init();
 

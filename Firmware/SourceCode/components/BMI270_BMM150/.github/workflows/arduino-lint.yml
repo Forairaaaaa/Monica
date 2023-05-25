@@ -1,0 +1,27 @@
+name: Arduino Lint
+on:
+  push:
+  pull_request:
+  # Scheduled trigger checks for breakage caused by new rules added to Arduino Lint
+  schedule:
+    # run every Saturday at 3 AM UTC
+    - cron: "0 3 * * 6"
+  # See: https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#workflow_dispatch
+  workflow_dispatch:
+  # See: https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#repository_dispatch
+  repository_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Arduino Lint
+        uses: arduino/arduino-lint-action@v1
+        with:
+          official: true
+          project-type: library
+          library-manager: update

@@ -15,7 +15,7 @@
 #include "power/hal_power.hpp"
 #include "rtc/hal_rtc.hpp"
 #include "tp/hal_tp.hpp"
-
+#include <BMI270.h>
 
 
 class HAL {
@@ -47,6 +47,9 @@ class HAL {
 
         /* Buzzer */
         BUZZER::BUZZER buzz;
+
+        /* IMU BMM270 + BMM150 */
+        BMI270::BMI270 imu;
 
         /* Lvgl */
         LVGL::LVGL lvgl;

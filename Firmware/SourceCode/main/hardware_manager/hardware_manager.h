@@ -18,8 +18,8 @@ namespace HM {
 
 
     struct RtcData_t {
-        /* update time every 1s */
-        int64_t update_interval = 1000000;
+        /* update time every 0.5s */
+        int64_t update_interval = 100000;
         int64_t update_count = 0;
         MOONCAKE::DataTime_t* ptr_in_db = nullptr;
         tm rtc_time;
@@ -32,11 +32,20 @@ namespace HM {
     };
 
 
+    struct ImuData_t {
+        /* update IMU data in 50Hz */
+        int64_t update_interval = 20;
+        int64_t update_count = 0;
+        uint32_t* steps = nullptr;
+    };
+
+
     enum PowerMode_t {
         mode_normal = 0,
         mode_going_sleep,
         mode_sleeping
     };
+
 
     struct PowerManager_t {
         PowerMode_t power_mode = mode_normal;
@@ -51,6 +60,7 @@ namespace HM {
             RtcData_t _rtc_data;
             PowerInfos_t _power_infos;
             PowerManager_t _power_manager;
+            ImuData_t _imu_data;
 
 
         public:
@@ -73,9 +83,12 @@ namespace HM {
 
 
             void update_rtc_time();
+            void update_imu_data();
             void update_power_infos();
+
             void update_go_sleep();
             void update_power_mode();
+            
 
 
 
