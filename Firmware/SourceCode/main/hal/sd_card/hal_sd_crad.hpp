@@ -85,6 +85,7 @@ namespace SD_CARD {
                 // For setting a specific frequency, use host.max_freq_khz (range 400kHz - 40MHz for SDMMC)
                 // Example: for fixed frequency of 10MHz, use host.max_freq_khz = 10000;
                 sdmmc_host_t host = SDMMC_HOST_DEFAULT();
+                // host.max_freq_khz = SDMMC_FREQ_HIGHSPEED;
 
                 // This initializes the slot without card detect (CD) and write protect (WP) signals.
                 // Modify slot_config.gpio_cd and slot_config.gpio_wp if your board has these signals.
@@ -137,6 +138,36 @@ namespace SD_CARD {
                 // fprintf(f, "nihao ????????????");
                 // fclose(f);
                 // ESP_LOGI(TAG, "File written");
+
+
+
+                // // std::string path = "/sdcard/nihao.txt";
+                // std::string path = "/sdcard/app_icons/app_icon_hdpi_canvas.png";
+                // FILE *f = fopen(path.c_str(), "r");
+                // if (f == NULL) {
+                //     ESP_LOGE(TAG, "Failed to open file for reading");
+                    
+                //     while (1) {
+                //         vTaskDelay(10);
+                //     }
+                // }
+                // char* line = new char[2048];
+                // fgets(line, 2048, f);
+                // fclose(f);
+
+                // // strip newline
+                // char *pos = strchr(line, '\n');
+                // if (pos) {
+                //     *pos = '\0';
+                // }
+                // ESP_LOGI(TAG, "Read from file: '%s'", line);
+                
+
+
+                // while (1) {
+                //     vTaskDelay(10);
+                // }
+
             }
 
     };
