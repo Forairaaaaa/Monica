@@ -150,45 +150,51 @@ extern "C" void app_main(void)
 
 
 
+    
+
+
+
+
+
 
     
 
-    // /* UI framwork init */
-    mooncake_ui.setDisplay(hardware_manager.disp.width(), hardware_manager.disp.height());
-    mooncake_ui.init();
+    // // /* UI framwork init */
+    // mooncake_ui.setDisplay(hardware_manager.disp.width(), hardware_manager.disp.height());
+    // mooncake_ui.init();
 
-    /* Set to same database */
-    hardware_manager.setDatabase(mooncake_ui.getDatabase());
-
-
-
-
-
-
-    /* Install Apps */
-    MOONCAKE::APP_BASE* app_ptr = nullptr;
-
-
-    std::string name;
-    for (int i = 0; i < 10; i++) {
-        name = "Test-" + std::to_string(i);
-        // printf("%s\n", name.c_str());
-
-        app_ptr = new AppTest(name.c_str());
-        mooncake_ui.install(app_ptr);
-
-    }
+    // /* Set to same database */
+    // hardware_manager.setDatabase(mooncake_ui.getDatabase());
 
 
 
 
 
 
+    // /* Install Apps */
+    // MOONCAKE::APP_BASE* app_ptr = nullptr;
 
-    while (1) {
-        hardware_manager.update();
-        mooncake_ui.update();
-        vTaskDelay(pdMS_TO_TICKS(2));
-    }
+
+    // std::string name;
+    // for (int i = 0; i < 10; i++) {
+    //     name = "Test-" + std::to_string(i);
+    //     // printf("%s\n", name.c_str());
+
+    //     app_ptr = new AppTest(name.c_str());
+    //     mooncake_ui.install(app_ptr);
+
+    // }
+
+
+
+
+
+
+
+    // while (1) {
+    //     hardware_manager.update();
+    //     mooncake_ui.update();
+    //     vTaskDelay(pdMS_TO_TICKS(2));
+    // }
 
 }

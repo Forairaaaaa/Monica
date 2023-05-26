@@ -32,6 +32,9 @@ void HAL::init()
     /* RTC PCF8563 */
     rtc.init(HAL_PIN_I2C_SDA, HAL_PIN_I2C_SCL, HAL_PIN_RTC_INTR);
 
+    /* SD card */
+    sd.init();
+
     /* Buzzer */
     buzz.init(HAL_PIN_BUZZER);
 
@@ -44,26 +47,6 @@ void HAL::init()
     imu.setWristWearWakeup();
     /* Enable step counter */
     imu.enableStepCounter();
-
-
-
-    // float x, y, z;
-
-    // while (1) {
-
-    //     if (imu.accelerationAvailable()) {
-    //         imu.readAcceleration(x, y, z); 
-
-    //         printf("%0.4f \t %0.4f \t %0.4f\n", x, y, z);
-            
-    //     }
-
-
-    //     printf("%ld\n", imu.getSteps());
-    
-
-    //     vTaskDelay(10);
-    // }
 
 
 

@@ -58,8 +58,8 @@ namespace HM {
         update_rtc_time();
         update_imu_data();
 
-        update_go_sleep();
-        update_power_mode();
+        // update_go_sleep();
+        // update_power_mode();
 
 
 

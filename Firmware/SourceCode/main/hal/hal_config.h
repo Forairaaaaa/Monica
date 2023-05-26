@@ -35,3 +35,12 @@
 
 /* Mic */
 #define HAL_PIN_MIC         42
+
+/* SD card */
+#define HAL_PIN_SD_CD       47
+#define HAL_PIN_SD_CLK      15
+#define HAL_PIN_SD_CMD      16
+#define HAL_PIN_SD_D0       17
+#define HAL_PIN_SD_D1       18
+#define HAL_PIN_SD_D2       48
+#define HAL_PIN_SD_D3       21

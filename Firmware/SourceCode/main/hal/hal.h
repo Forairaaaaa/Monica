@@ -14,6 +14,7 @@
 #include "lvgl/hal_lvgl.hpp"
 #include "power/hal_power.hpp"
 #include "rtc/hal_rtc.hpp"
+#include "sd_card/hal_sd_crad.hpp"
 #include "tp/hal_tp.hpp"
 #include <BMI270.h>
 
@@ -44,6 +45,9 @@ class HAL {
 
         /* RTC PCF8563 */
         PCF8563::PCF8563 rtc;
+
+        /* SD card */
+        SD_CARD::SD_Card sd;
 
         /* Buzzer */
         BUZZER::BUZZER buzz;
