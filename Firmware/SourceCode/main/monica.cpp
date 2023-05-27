@@ -198,65 +198,9 @@ extern "C" void app_main(void)
     // lv_example_rlottie_1();
 
 
-    extern const uint8_t lv_example_rlottie_approve[];
-    lv_obj_t * lottie = lv_rlottie_create_from_raw(lv_scr_act(), 100, 100, (const char *)lv_example_rlottie_approve);
-    lv_obj_center(lottie);
-
-
-
-
-
-
-
-
-
-    while (1) {
-        lv_timer_handler();
-        vTaskDelay(5);
-    }
-
-
-
-
-
-
-    
-
-    // // /* UI framwork init */
-    // mooncake_ui.setDisplay(hardware_manager.disp.width(), hardware_manager.disp.height());
-    // mooncake_ui.init();
-
-    // /* Set to same database */
-    // hardware_manager.setDatabase(mooncake_ui.getDatabase());
-
-
-
-
-
-
-    // /* Install Apps */
-    // MOONCAKE::APP_BASE* app_ptr = nullptr;
-
-    // app_ptr = new AppTest("111", (void*)&ui_img_app_icon_hdpi_badminton_png);
-    // mooncake_ui.install(app_ptr);
-    // app_ptr = new AppTest("222", (void*)&ui_img_app_icon_hdpi_birdhead_png);
-    // mooncake_ui.install(app_ptr);
-    // app_ptr = new AppTest("333", (void*)&ui_img_app_icon_hdpi_boxing_png);
-    // mooncake_ui.install(app_ptr);
-    // app_ptr = new AppTest("444", (void*)&ui_img_app_icon_hdpi_camera_png);
-    // mooncake_ui.install(app_ptr);
-    // app_ptr = new AppTest("555", (void*)&ui_img_app_icon_hdpi_canvas_png);
-    // mooncake_ui.install(app_ptr);
-    // app_ptr = new AppTest("666", (void*)&ui_img_app_icon_hdpi_cheers_png);
-    // mooncake_ui.install(app_ptr);
-    // app_ptr = new AppTest("777", (void*)&ui_img_app_icon_hdpi_location_png);
-    // mooncake_ui.install(app_ptr);
-    // app_ptr = new AppTest("888", (void*)&ui_img_app_icon_hdpi_music_png);
-    // mooncake_ui.install(app_ptr);
-    // app_ptr = new AppTest("999", (void*)&ui_img_app_icon_hdpi_pingpong_png);
-    // mooncake_ui.install(app_ptr);
-    // app_ptr = new AppTest("1010", (void*)&ui_img_app_icon_hdpi_weather_png);
-    // mooncake_ui.install(app_ptr);
+    // extern const uint8_t lv_example_rlottie_approve[];
+    // lv_obj_t * lottie = lv_rlottie_create_from_raw(lv_scr_act(), 100, 100, (const char *)lv_example_rlottie_approve);
+    // lv_obj_center(lottie);
 
 
 
@@ -267,9 +211,65 @@ extern "C" void app_main(void)
 
 
     // while (1) {
-    //     hardware_manager.update();
-    //     mooncake_ui.update();
-    //     vTaskDelay(pdMS_TO_TICKS(2));
+    //     lv_timer_handler();
+    //     vTaskDelay(5);
     // }
+
+
+
+
+
+
+    
+
+    // /* UI framwork init */
+    mooncake_ui.setDisplay(hardware_manager.disp.width(), hardware_manager.disp.height());
+    mooncake_ui.init();
+
+    /* Set to same database */
+    hardware_manager.setDatabase(mooncake_ui.getDatabase());
+
+
+
+
+
+
+    /* Install Apps */
+    MOONCAKE::APP_BASE* app_ptr = nullptr;
+
+    app_ptr = new AppTest("111", (void*)&ui_img_app_icon_hdpi_badminton_png);
+    mooncake_ui.install(app_ptr);
+    app_ptr = new AppTest("222", (void*)&ui_img_app_icon_hdpi_birdhead_png);
+    mooncake_ui.install(app_ptr);
+    app_ptr = new AppTest("333", (void*)&ui_img_app_icon_hdpi_boxing_png);
+    mooncake_ui.install(app_ptr);
+    app_ptr = new AppTest("444", (void*)&ui_img_app_icon_hdpi_camera_png);
+    mooncake_ui.install(app_ptr);
+    app_ptr = new AppTest("555", (void*)&ui_img_app_icon_hdpi_canvas_png);
+    mooncake_ui.install(app_ptr);
+    app_ptr = new AppTest("666", (void*)&ui_img_app_icon_hdpi_cheers_png);
+    mooncake_ui.install(app_ptr);
+    app_ptr = new AppTest("777", (void*)&ui_img_app_icon_hdpi_location_png);
+    mooncake_ui.install(app_ptr);
+    app_ptr = new AppTest("888", (void*)&ui_img_app_icon_hdpi_music_png);
+    mooncake_ui.install(app_ptr);
+    app_ptr = new AppTest("999", (void*)&ui_img_app_icon_hdpi_pingpong_png);
+    mooncake_ui.install(app_ptr);
+    app_ptr = new AppTest("1010", (void*)&ui_img_app_icon_hdpi_weather_png);
+    mooncake_ui.install(app_ptr);
+
+
+
+
+
+
+
+
+
+    while (1) {
+        hardware_manager.update();
+        mooncake_ui.update();
+        vTaskDelay(pdMS_TO_TICKS(2));
+    }
 
 }
