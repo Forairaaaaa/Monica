@@ -665,7 +665,7 @@
 #endif
 
 /*Rlottie library*/
-#define LV_USE_RLOTTIE 0
+#define LV_USE_RLOTTIE 1
 
 /*FFmpeg library for image decoding and playing videos
  *Supports all major image formats so do not enable other image decoder with it*/

@@ -13,6 +13,8 @@
 #include "hardware_manager/hardware_manager.h"
 #include "user_apps/public_assets/assets.h"
 
+#include <lv_examples.h>
+
 
 static MOONCAKE::Framework mooncake_ui;
 static HM::Hardware_Manager hardware_manager;
@@ -154,26 +156,26 @@ extern "C" void app_main(void)
 
 
     // static const char* anim_imgs[] = {
-    //     "A:sdcard/watch_faces/flowers_1/flower_01.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_02.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_03.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_04.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_05.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_06.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_07.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_08.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_09.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_10.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_11.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_12.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_13.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_14.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_15.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_16.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_17.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_18.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_19.png",
-    //     "A:sdcard/watch_faces/flowers_1/flower_20.png",
+    //     "A:sdcard/watch_faces/flowers_1/flower_01.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_02.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_03.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_04.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_05.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_06.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_07.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_08.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_09.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_10.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_11.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_12.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_13.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_14.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_15.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_16.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_17.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_18.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_19.bin",
+    //     "A:sdcard/watch_faces/flowers_1/flower_20.bin",
     // };
 
 
@@ -181,59 +183,24 @@ extern "C" void app_main(void)
     // lv_obj_t * animimg0 = lv_animimg_create(lv_scr_act());
     // lv_obj_center(animimg0);
     // lv_animimg_set_src(animimg0, (const void **) anim_imgs, 20);
-    // lv_animimg_set_duration(animimg0, 6000);
+    // lv_animimg_set_duration(animimg0, 1000);
     // lv_animimg_set_repeat_count(animimg0, LV_ANIM_REPEAT_INFINITE);
     // lv_animimg_start(animimg0);
 
 
 
-    // while (1) {
-    //     lv_timer_handler();
-    //     vTaskDelay(5);
-    // }
 
 
 
 
 
 
-    
-
-    // /* UI framwork init */
-    mooncake_ui.setDisplay(hardware_manager.disp.width(), hardware_manager.disp.height());
-    mooncake_ui.init();
-
-    /* Set to same database */
-    hardware_manager.setDatabase(mooncake_ui.getDatabase());
+    // lv_example_rlottie_1();
 
 
-
-
-
-
-    /* Install Apps */
-    MOONCAKE::APP_BASE* app_ptr = nullptr;
-
-    app_ptr = new AppTest("111", (void*)&ui_img_app_icon_hdpi_badminton_png);
-    mooncake_ui.install(app_ptr);
-    app_ptr = new AppTest("222", (void*)&ui_img_app_icon_hdpi_birdhead_png);
-    mooncake_ui.install(app_ptr);
-    app_ptr = new AppTest("333", (void*)&ui_img_app_icon_hdpi_boxing_png);
-    mooncake_ui.install(app_ptr);
-    app_ptr = new AppTest("444", (void*)&ui_img_app_icon_hdpi_camera_png);
-    mooncake_ui.install(app_ptr);
-    app_ptr = new AppTest("555", (void*)&ui_img_app_icon_hdpi_canvas_png);
-    mooncake_ui.install(app_ptr);
-    app_ptr = new AppTest("666", (void*)&ui_img_app_icon_hdpi_cheers_png);
-    mooncake_ui.install(app_ptr);
-    app_ptr = new AppTest("777", (void*)&ui_img_app_icon_hdpi_location_png);
-    mooncake_ui.install(app_ptr);
-    app_ptr = new AppTest("888", (void*)&ui_img_app_icon_hdpi_music_png);
-    mooncake_ui.install(app_ptr);
-    app_ptr = new AppTest("999", (void*)&ui_img_app_icon_hdpi_pingpong_png);
-    mooncake_ui.install(app_ptr);
-    app_ptr = new AppTest("1010", (void*)&ui_img_app_icon_hdpi_weather_png);
-    mooncake_ui.install(app_ptr);
+    extern const uint8_t lv_example_rlottie_approve[];
+    lv_obj_t * lottie = lv_rlottie_create_from_raw(lv_scr_act(), 100, 100, (const char *)lv_example_rlottie_approve);
+    lv_obj_center(lottie);
 
 
 
@@ -244,9 +211,65 @@ extern "C" void app_main(void)
 
 
     while (1) {
-        hardware_manager.update();
-        mooncake_ui.update();
-        vTaskDelay(pdMS_TO_TICKS(2));
+        lv_timer_handler();
+        vTaskDelay(5);
     }
+
+
+
+
+
+
+    
+
+    // // /* UI framwork init */
+    // mooncake_ui.setDisplay(hardware_manager.disp.width(), hardware_manager.disp.height());
+    // mooncake_ui.init();
+
+    // /* Set to same database */
+    // hardware_manager.setDatabase(mooncake_ui.getDatabase());
+
+
+
+
+
+
+    // /* Install Apps */
+    // MOONCAKE::APP_BASE* app_ptr = nullptr;
+
+    // app_ptr = new AppTest("111", (void*)&ui_img_app_icon_hdpi_badminton_png);
+    // mooncake_ui.install(app_ptr);
+    // app_ptr = new AppTest("222", (void*)&ui_img_app_icon_hdpi_birdhead_png);
+    // mooncake_ui.install(app_ptr);
+    // app_ptr = new AppTest("333", (void*)&ui_img_app_icon_hdpi_boxing_png);
+    // mooncake_ui.install(app_ptr);
+    // app_ptr = new AppTest("444", (void*)&ui_img_app_icon_hdpi_camera_png);
+    // mooncake_ui.install(app_ptr);
+    // app_ptr = new AppTest("555", (void*)&ui_img_app_icon_hdpi_canvas_png);
+    // mooncake_ui.install(app_ptr);
+    // app_ptr = new AppTest("666", (void*)&ui_img_app_icon_hdpi_cheers_png);
+    // mooncake_ui.install(app_ptr);
+    // app_ptr = new AppTest("777", (void*)&ui_img_app_icon_hdpi_location_png);
+    // mooncake_ui.install(app_ptr);
+    // app_ptr = new AppTest("888", (void*)&ui_img_app_icon_hdpi_music_png);
+    // mooncake_ui.install(app_ptr);
+    // app_ptr = new AppTest("999", (void*)&ui_img_app_icon_hdpi_pingpong_png);
+    // mooncake_ui.install(app_ptr);
+    // app_ptr = new AppTest("1010", (void*)&ui_img_app_icon_hdpi_weather_png);
+    // mooncake_ui.install(app_ptr);
+
+
+
+
+
+
+
+
+
+    // while (1) {
+    //     hardware_manager.update();
+    //     mooncake_ui.update();
+    //     vTaskDelay(pdMS_TO_TICKS(2));
+    // }
 
 }
