@@ -10,25 +10,24 @@
  */
 #pragma once
 #include "../hal/hal.h"
-#include "mooncake/src/simplekv/simplekv.h"
-#include "mooncake/src/system_data_def.h"
+#include <mooncake.h>
 
 
 namespace HM {
 
 
     struct RtcData_t {
-        /* update time every 0.5s */
-        int64_t update_interval = 100000;
+        /* update time in 1Hz */
+        int64_t update_interval = 1000000;
         int64_t update_count = 0;
-        MOONCAKE::DataTime_t* ptr_in_db = nullptr;
+        MOONCAKE::DataTime_t* time_ptr = nullptr;
         tm rtc_time;
     };
 
 
     struct PowerInfos_t {
-        uint8_t* ptr_battery_level = nullptr;
-        bool* ptr_battery_is_charging = nullptr;
+        uint8_t* battery_level_ptr = nullptr;
+        bool* battery_is_charging_ptr = nullptr;
     };
 
 
@@ -47,50 +46,64 @@ namespace HM {
     };
 
 
+    struct SystemData_t {
+        bool* just_wake_up_ptr = nullptr;
+    };
+
+
     struct PowerManager_t {
         PowerMode_t power_mode = mode_normal;
 
-        uint32_t auto_sleep_time = 5000;
+        uint32_t auto_sleep_time = 8000;
     };
 
 
     class Hardware_Manager : public HAL {
         private:
-            SIMPLEKV::SimpleKV* _database;
+            MOONCAKE::Mooncake* _mooncake;
+
             RtcData_t _rtc_data;
             PowerInfos_t _power_infos;
             PowerManager_t _power_manager;
             ImuData_t _imu_data;
+            SystemData_t _system_data;
+
+
+            void _update_rtc_time();
+            void _update_imu_data();
+            void _update_power_infos();
+
+            void _update_go_sleep();
+            void _update_power_mode();
 
 
         public:
-            Hardware_Manager() : _database(nullptr) {}
+            Hardware_Manager() : _mooncake(nullptr) {}
             ~Hardware_Manager() = default;
 
 
             /**
-             * @brief Set database, set before running update
+             * @brief Set Mooncake that hardware manager works for, set after Mooncake's init
              * 
-             * @param database which mooncake is using 
+             * @param mooncake 
              */
-            void setDatabase(SIMPLEKV::SimpleKV* database);
-            inline SIMPLEKV::SimpleKV* getDatabase() { return _database; }
+            void setMooncake(MOONCAKE::Mooncake* mooncake);
+            inline MOONCAKE::Mooncake* getMooncake(void) { return _mooncake; }
+            inline SIMPLEKV::SimpleKV* getDatabase() { return _mooncake->getDatabase(); }
 
+
+            /**
+             * @brief Init hardware manager
+             * 
+             */
             void init();
+
+
+            /**
+             * @brief Call this in loop to keep hardware manager running
+             * 
+             */
             void update();
-
-
-
-
-            void update_rtc_time();
-            void update_imu_data();
-            void update_power_infos();
-
-            void update_go_sleep();
-            void update_power_mode();
-            
-
-
 
     };
 
