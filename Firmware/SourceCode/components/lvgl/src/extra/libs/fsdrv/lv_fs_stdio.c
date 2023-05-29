@@ -117,10 +117,10 @@ static void * fs_open(lv_fs_drv_t * drv, const char * path, lv_fs_mode_t mode)
     char buf[MAX_PATH_LEN];
     lv_snprintf(buf, sizeof(buf), LV_FS_STDIO_PATH "%s", path);
 
-    printf("open %s %s\n", buf, flags);
-    FILE* file = fopen(buf, flags);
-    printf("ret %p %d\n", file, (file == NULL));
-    fclose(file);
+    // printf("open %s %s\n", buf, flags);
+    // FILE* file = fopen(buf, flags);
+    // printf("ret %p %d\n", file, (file == NULL));
+    // fclose(file);
 
     return fopen(buf, flags);
 }
