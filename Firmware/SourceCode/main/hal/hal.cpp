@@ -38,6 +38,10 @@ void HAL::init()
     /* Buzzer */
     buzz.init(HAL_PIN_BUZZER);
 
+    /* Buttons */
+    btnA.begin();
+    btnB.begin();
+
     /* Lvgl */
     lvgl.init(&disp, &tp);
 

@@ -58,6 +58,18 @@ namespace HM {
     };
 
 
+    struct KeyData_t {
+        /* update key in 100Hz */
+        int64_t update_interval = 10000;
+        int64_t update_count = 0;
+
+        bool* key_home_ptr = nullptr;
+        bool* key_pwr_ptr = nullptr;
+        bool* key_up_ptr = nullptr;
+        bool* key_down_ptr = nullptr;
+    };
+
+
     class Hardware_Manager : public HAL {
         private:
             MOONCAKE::Mooncake* _mooncake;
@@ -67,6 +79,7 @@ namespace HM {
             PowerManager_t _power_manager;
             ImuData_t _imu_data;
             SystemData_t _system_data;
+            KeyData_t _key_data;
 
 
             void _update_rtc_time();
@@ -75,6 +88,8 @@ namespace HM {
 
             void _update_go_sleep();
             void _update_power_mode();
+
+            void _update_key_data();
 
 
         public:

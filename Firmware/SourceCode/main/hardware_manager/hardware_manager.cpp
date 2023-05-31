@@ -135,11 +135,30 @@ namespace HM {
     }
 
 
+    void Hardware_Manager::_update_key_data()
+    {
+        /* Key Home or Power */
+        if (pmu.isKeyPressed()) {
+            *_key_data.key_home_ptr = true;
+            *_key_data.key_pwr_ptr = true;
+        }
+
+        /* Key Up */
+        if (btnA.pressed()) {
+            *_key_data.key_up_ptr = true;
+        }
+
+        /* Key Down */
+        if (btnB.pressed()) {
+            *_key_data.key_down_ptr = true;
+        }
+    }
+
 
     void Hardware_Manager::setMooncake(MOONCAKE::Mooncake* mooncake)
     {
         if (mooncake == nullptr) {
-            ESP_LOGE(TAG, "empty database");
+            ESP_LOGE(TAG, "empty pointer");
             return;
         }
         _mooncake = mooncake;
@@ -159,6 +178,12 @@ namespace HM {
 
         /* System data */
         _system_data.just_wake_up_ptr = (bool*)getDatabase()->Get(MC_JUST_WAKEUP)->addr;
+
+        /* Keys */
+        _key_data.key_home_ptr = (bool*)getDatabase()->Get(MC_KEY_HOME)->addr;
+        _key_data.key_pwr_ptr = (bool*)getDatabase()->Get(MC_KEY_POWER)->addr;
+        _key_data.key_up_ptr = (bool*)getDatabase()->Get(MC_KEY_UP)->addr;
+        _key_data.key_down_ptr = (bool*)getDatabase()->Get(MC_KEY_DOWN)->addr;
     }
 
 
@@ -180,6 +205,12 @@ namespace HM {
         if ((esp_timer_get_time() - _imu_data.update_count) > _imu_data.update_interval) {
             _update_imu_data();
             _imu_data.update_count = esp_timer_get_time();
+        }
+
+        /* Update keys */
+        if ((esp_timer_get_time() - _key_data.update_count) > _key_data.update_interval) {
+            _update_key_data();
+            _key_data.update_count = esp_timer_get_time();
         }
 
 

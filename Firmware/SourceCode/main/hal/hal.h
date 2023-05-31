@@ -9,6 +9,7 @@
  * 
  */
 #pragma once
+#include "button/Button.h"
 #include "buzzer/hal_buzzer.hpp"
 #include "disp/hal_disp.hpp"
 #include "lvgl/hal_lvgl.hpp"
@@ -48,6 +49,10 @@ class HAL {
 
         /* SD card */
         SD_CARD::SD_Card sd;
+
+        /* Buttons */
+        Button btnA = Button(GPIO_NUM_0);
+        Button btnB = Button(GPIO_NUM_39);
 
         /* Buzzer */
         BUZZER::BUZZER buzz;
