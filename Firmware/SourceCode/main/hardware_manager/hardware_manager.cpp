@@ -108,6 +108,8 @@ namespace HM {
             /* Update data at once */
             _update_rtc_time();
             _update_imu_data();
+            /* Clear key pwr */
+            pmu.isKeyPressed();
 
             /* Tell Mooncake */
             *_system_data.just_wake_up_ptr = true;

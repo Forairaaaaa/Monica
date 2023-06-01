@@ -408,10 +408,12 @@ void hal_enter_usb_msc_mode(void)
                 }
 
                 // tinyusb_msc_storage_unmount();
-                tinyusb_msc_storage_deinit();
-                vTaskDelay(200);
+                // tinyusb_msc_storage_deinit();
+                // vTaskDelay(200);
 
-                esp_restart();
+                // esp_restart();
+
+                break;
 
 
             }

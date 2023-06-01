@@ -97,6 +97,12 @@ void HAL::checkBootMode()
 
             hal_enter_usb_msc_mode();
 
+            /* Simply restart make usb not vailable, dont know why */
+            pmu.powerOff();
+            while (1) {
+                vTaskDelay(1000);
+            }
+
         }
     }
 
