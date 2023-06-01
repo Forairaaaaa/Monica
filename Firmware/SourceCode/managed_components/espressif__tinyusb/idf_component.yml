@@ -1,0 +1,11 @@
+dependencies:
+  idf:
+    version: '>=5.0'
+description: TinyUSB ported to Espressif's SoCs
+documentation: https://docs.tinyusb.org/en/latest/
+repository: https://github.com/espressif/tinyusb.git
+targets:
+- esp32s2
+- esp32s3
+url: https://docs.tinyusb.org/en/latest/
+version: 0.14.3

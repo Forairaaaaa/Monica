@@ -151,6 +151,11 @@ extern "C" void app_main(void)
     /* Hardware init */
     hardware_manager.init();
 
+    // while (1) {
+    //     printf("666\n");
+    //     vTaskDelay(1000);
+    // }
+
 
 
 
@@ -178,8 +183,8 @@ extern "C" void app_main(void)
     mooncake_ui.install(app_ptr);
     app_ptr = new AppTest("444", (void*)&ui_img_app_icon_hdpi_camera_png);
     mooncake_ui.install(app_ptr);
-    app_ptr = new AppTest("555", (void*)&ui_img_app_icon_hdpi_canvas_png);
-    mooncake_ui.install(app_ptr);
+    // app_ptr = new AppTest("555", (void*)&ui_img_app_icon_hdpi_canvas_png);
+    // mooncake_ui.install(app_ptr);
     app_ptr = new AppTest("111", (void*)&ui_img_app_icon_hdpi_badminton_png);
     mooncake_ui.install(app_ptr);
     app_ptr = new AppTest("222", (void*)&ui_img_app_icon_hdpi_birdhead_png);

@@ -18,6 +18,9 @@
 #include "sd_card/hal_sd_crad.hpp"
 #include "tp/hal_tp.hpp"
 #include <BMI270.h>
+extern "C" {
+#include "usb_msc/hal_usb_msc.h"
+}
 
 
 class HAL {
@@ -70,11 +73,19 @@ class HAL {
          */
         void init();
 
+
         /**
          * @brief Update hal
          * 
          */
         void update();
+
+
+        /**
+         * @brief Normal or USB MSC mode 
+         * 
+         */
+        void checkBootMode();
 
 
 };

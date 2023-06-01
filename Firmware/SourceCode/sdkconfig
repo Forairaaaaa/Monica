@@ -414,6 +414,21 @@ CONFIG_PARTITION_TABLE_MD5=y
 # end of Partition Table
 
 #
+# USB Dev MSC Example Configuration
+#
+# CONFIG_EXAMPLE_STORAGE_MEDIA_SPIFLASH is not set
+CONFIG_EXAMPLE_STORAGE_MEDIA_SDMMCCARD=y
+CONFIG_EXAMPLE_SDMMC_BUS_WIDTH_4=y
+# CONFIG_EXAMPLE_SDMMC_BUS_WIDTH_1 is not set
+CONFIG_EXAMPLE_PIN_CMD=16
+CONFIG_EXAMPLE_PIN_CLK=15
+CONFIG_EXAMPLE_PIN_D0=17
+CONFIG_EXAMPLE_PIN_D1=18
+CONFIG_EXAMPLE_PIN_D2=48
+CONFIG_EXAMPLE_PIN_D3=21
+# end of USB Dev MSC Example Configuration
+
+#
 # Compiler options
 #
 CONFIG_COMPILER_OPTIMIZATION_DEFAULT=y
@@ -1971,6 +1986,84 @@ CONFIG_LV_BUILD_EXAMPLES=y
 # CONFIG_LV_USE_DEMO_MUSIC is not set
 # end of Demos
 # end of LVGL configuration
+
+#
+# TinyUSB Stack
+#
+CONFIG_TINYUSB_DEBUG_LEVEL=0
+
+#
+# TinyUSB task configuration
+#
+# CONFIG_TINYUSB_NO_DEFAULT_TASK is not set
+CONFIG_TINYUSB_TASK_PRIORITY=5
+CONFIG_TINYUSB_TASK_STACK_SIZE=4096
+# end of TinyUSB task configuration
+
+#
+# Descriptor configuration
+#
+
+#
+# You can provide your custom descriptors via tinyusb_driver_install()
+#
+CONFIG_TINYUSB_DESC_USE_ESPRESSIF_VID=y
+CONFIG_TINYUSB_DESC_USE_DEFAULT_PID=y
+CONFIG_TINYUSB_DESC_BCD_DEVICE=0x0100
+CONFIG_TINYUSB_DESC_MANUFACTURER_STRING="Espressif Systems"
+CONFIG_TINYUSB_DESC_PRODUCT_STRING="Espressif Device"
+CONFIG_TINYUSB_DESC_SERIAL_STRING="123456"
+CONFIG_TINYUSB_DESC_MSC_STRING="Espressif MSC Device"
+# end of Descriptor configuration
+
+#
+# Massive Storage Class (MSC)
+#
+CONFIG_TINYUSB_MSC_ENABLED=y
+CONFIG_TINYUSB_MSC_BUFSIZE=512
+CONFIG_TINYUSB_MSC_MOUNT_PATH="/data"
+# end of Massive Storage Class (MSC)
+
+#
+# Communication Device Class (CDC)
+#
+# CONFIG_TINYUSB_CDC_ENABLED is not set
+# end of Communication Device Class (CDC)
+
+#
+# Musical Instrument Digital Interface (MIDI)
+#
+CONFIG_TINYUSB_MIDI_COUNT=0
+# end of Musical Instrument Digital Interface (MIDI)
+
+#
+# Human Interface Device Class (HID)
+#
+CONFIG_TINYUSB_HID_COUNT=0
+# end of Human Interface Device Class (HID)
+
+#
+# Device Firmware Upgrade (DFU)
+#
+# CONFIG_TINYUSB_DFU_MODE_DFU is not set
+# CONFIG_TINYUSB_DFU_MODE_DFU_RUNTIME is not set
+CONFIG_TINYUSB_DFU_MODE_NONE=y
+# end of Device Firmware Upgrade (DFU)
+
+#
+# Bluetooth Host Class (BTH)
+#
+# CONFIG_TINYUSB_BTH_ENABLED is not set
+# end of Bluetooth Host Class (BTH)
+
+#
+# Network driver (ECM/NCM/RNDIS)
+#
+# CONFIG_TINYUSB_NET_MODE_ECM_RNDIS is not set
+# CONFIG_TINYUSB_NET_MODE_NCM is not set
+CONFIG_TINYUSB_NET_MODE_NONE=y
+# end of Network driver (ECM/NCM/RNDIS)
+# end of TinyUSB Stack
 # end of Component config
 
 # Deprecated options for backward compatibility
