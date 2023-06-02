@@ -21,6 +21,7 @@ namespace HM {
         int64_t update_interval = 1000000;
         int64_t update_count = 0;
         MOONCAKE::DataTime_t* time_ptr = nullptr;
+        bool* time_just_set_ptr = nullptr;
         tm rtc_time;
     };
 

@@ -74,6 +74,18 @@ void HAL::update()
 }
 
 
+const std::string disk_ascii = R"(
+   ****     ### *
+ ******     ### ****
+ ******         *****
+ ********************
+ ****/,,,,,,,,,,,/***
+ ****             ***
+ ****             ***
+ ****             ***
+)";
+
+
 void HAL::checkBootMode()
 {
     /* Press button B while power on to enter USB MSC mode */
@@ -86,16 +98,24 @@ void HAL::checkBootMode()
             disp.setCursor(0, 50);
             disp.printf(" :)\n Release Key\n To Enter\n USB MSC Mode\n");
 
+            /* Wait release */
             while (!btnB.read()) {
                 vTaskDelay(pdMS_TO_TICKS(10));
             }
 
             disp.fillScreen(TFT_BLACK);
-            disp.setTextSize(4);
+            disp.setTextSize(3);
             disp.setCursor(0, 50);
-            disp.printf(" USB MSC Mode\n\n\n\n\n\n\n\n\n\n Reboot     ->");
+            // disp.printf(" USB MSC Mode\n\n\n\n\n\n\n\n\n\n Reboot     ->");
+            disp.printf(" [ USB MSC Mode ]\n");
 
+            disp.setTextSize(2);
+            disp.printf("\n\n\n%s\n\n\n\n Press to quit            ->", disk_ascii.c_str());
+
+
+            /* Enable usb msc */
             hal_enter_usb_msc_mode();
+
 
             /* Simply restart make usb not vailable, dont know why */
             pmu.powerOff();

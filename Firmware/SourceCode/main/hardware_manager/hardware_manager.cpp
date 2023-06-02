@@ -25,20 +25,43 @@ namespace HM {
 
     void Hardware_Manager::_update_rtc_time()
     {
-        /* Read RTC */
-        rtc.getTime(_rtc_data.rtc_time);
-        // printf("%02d:%02d:%02d %d-%d-%d-%d\n",
-        //     _rtc_data.rtc_time.tm_hour, _rtc_data.rtc_time.tm_min, _rtc_data.rtc_time.tm_sec,
-        //     _rtc_data.rtc_time.tm_year, _rtc_data.rtc_time.tm_mon + 1, _rtc_data.rtc_time.tm_mday, _rtc_data.rtc_time.tm_wday);
+        /* If time just set */
+        if (*_rtc_data.time_just_set_ptr) {
+            
+            /* Reset flag */
+            *_rtc_data.time_just_set_ptr = false;
 
-        /* Write into database */
-        _rtc_data.time_ptr->hour = _rtc_data.rtc_time.tm_hour;
-        _rtc_data.time_ptr->min = _rtc_data.rtc_time.tm_min;
-        _rtc_data.time_ptr->sec = _rtc_data.rtc_time.tm_sec;
-        _rtc_data.time_ptr->year = _rtc_data.rtc_time.tm_year - 1900;
-        _rtc_data.time_ptr->mon = _rtc_data.rtc_time.tm_mon;
-        _rtc_data.time_ptr->mday = _rtc_data.rtc_time.tm_mday;
-        _rtc_data.time_ptr->wday = _rtc_data.rtc_time.tm_wday;
+            /* Write into RTC data buffer */
+            _rtc_data.rtc_time.tm_hour = _rtc_data.time_ptr->hour;
+            _rtc_data.rtc_time.tm_min = _rtc_data.time_ptr->min;
+            _rtc_data.rtc_time.tm_sec = _rtc_data.time_ptr->sec;
+            _rtc_data.rtc_time.tm_year = _rtc_data.time_ptr->year + 1900;
+            _rtc_data.rtc_time.tm_mon = _rtc_data.time_ptr->mon;
+            _rtc_data.rtc_time.tm_mday = _rtc_data.time_ptr->mday;
+            _rtc_data.rtc_time.tm_wday = _rtc_data.time_ptr->wday;
+
+            /* Set RTC time */
+            rtc.setTime(_rtc_data.rtc_time);
+
+        }
+        else {
+
+            /* Read RTC */
+            rtc.getTime(_rtc_data.rtc_time);
+            // printf("%02d:%02d:%02d %d-%d-%d-%d\n",
+            //     _rtc_data.rtc_time.tm_hour, _rtc_data.rtc_time.tm_min, _rtc_data.rtc_time.tm_sec,
+            //     _rtc_data.rtc_time.tm_year, _rtc_data.rtc_time.tm_mon + 1, _rtc_data.rtc_time.tm_mday, _rtc_data.rtc_time.tm_wday);
+
+            /* Write into database */
+            _rtc_data.time_ptr->hour = _rtc_data.rtc_time.tm_hour;
+            _rtc_data.time_ptr->min = _rtc_data.rtc_time.tm_min;
+            _rtc_data.time_ptr->sec = _rtc_data.rtc_time.tm_sec;
+            _rtc_data.time_ptr->year = _rtc_data.rtc_time.tm_year - 1900;
+            _rtc_data.time_ptr->mon = _rtc_data.rtc_time.tm_mon;
+            _rtc_data.time_ptr->mday = _rtc_data.rtc_time.tm_mday;
+            _rtc_data.time_ptr->wday = _rtc_data.rtc_time.tm_wday;
+
+        }
 
         /* Update power infos also */
         _update_power_infos();
@@ -170,6 +193,7 @@ namespace HM {
 
         /* Time */
         _rtc_data.time_ptr = (MOONCAKE::DataTime_t*)getDatabase()->Get(MC_TIME)->addr;
+        _rtc_data.time_just_set_ptr = (bool*)getDatabase()->Get(MC_TIME_JSUT_SET)->addr;
 
         /* Power infos */
         _power_infos.battery_level_ptr = (uint8_t*)getDatabase()->Get(MC_BATTERY_LEVEL)->addr;
