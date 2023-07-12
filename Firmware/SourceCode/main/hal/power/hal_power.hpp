@@ -75,6 +75,22 @@ namespace AXP2101 {
             {
                 gpioInit();
 
+
+
+
+                /* Limit charging current */
+                _readReg(0x62, 1);
+                ESP_LOGI(TAG, "read 0x62 get: 0x%X", _data_buffer[0]);
+                
+                /* 100mA */
+                _data_buffer[0] = _data_buffer[0] & 0b11100000;
+                _data_buffer[0] = _data_buffer[0] | 0b00000100;
+                _writrReg(0x62, _data_buffer[0]);
+
+                _readReg(0x62, 1);
+                ESP_LOGI(TAG, "read 0x62 get: 0x%X", _data_buffer[0]);
+
+
                 return true;
             }
 
