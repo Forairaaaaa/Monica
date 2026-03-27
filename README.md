@@ -2,7 +2,7 @@
 
 视频介绍：https://www.bilibili.com/video/BV1AP411Q7dk
 
-硬件开源：https://oshwhub.com/eedadada/monica
+硬件开源：https://oshwhub.com/eda_rgprdhwej/monica
 
 ![](https://github.com/Forairaaaaa/monica/blob/main/Pics/cover.JPG?raw=true)
 
